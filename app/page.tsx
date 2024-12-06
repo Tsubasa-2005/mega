@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { File as MegaFile, Storage } from 'megajs';
+import Link from 'next/link';
 
 export default function MediaStreamPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -33,9 +34,12 @@ export default function MediaStreamPage() {
     setProgress(0);
 
     try {
+      const email = process.env.NEXT_PUBLIC_STORAGE_EMAIL!;
+      const password = process.env.NEXT_PUBLIC_STORAGE_PASSWORD!;
+
       const storage = new Storage({
-        email: '{your email}',
-        password: '{your pass}',
+        email: email,
+        password: password,
       });
 
       await storage.login();
@@ -198,6 +202,34 @@ export default function MediaStreamPage() {
           </button>
         </div>
       )}
+      <div>
+        <Link
+          href="/image"
+          style={{
+            backgroundColor: '#28a745',
+            color: 'white',
+            padding: '10px 20px',
+            borderRadius: '5px',
+            textDecoration: 'none',
+            textAlign: 'center',
+          }}
+        >
+          Go to Image Page
+        </Link>
+        <Link
+          href="/voice"
+          style={{
+            backgroundColor: '#17a2b8',
+            color: 'white',
+            padding: '10px 20px',
+            borderRadius: '5px',
+            textDecoration: 'none',
+            textAlign: 'center',
+          }}
+        >
+          Go to Voice Page
+        </Link>
+      </div>
     </div>
   );
 }
